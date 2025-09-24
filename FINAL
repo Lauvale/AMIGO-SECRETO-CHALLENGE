@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Amigo Secreto</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+    }
+    ul {
+      margin-top: 15px;
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 5px 0;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Juego: Amigo Secreto 🎁</h1>
+
+  <!-- Campo para ingresar nombres -->
+  <input type="text" id="nombreInput" placeholder="Escribe un nombre">
+  <button onclick="adicionarAmigo()">Adicionar</button>
+
+  <!-- Lista de nombres -->
+  <ul id="listaAmigos"></ul>
+
+  <!-- Botón para sortear -->
+  <button onclick="sortearAmigo()">Sortear Amigo</button>
+
+  <!-- Resultado -->
+  <p id="resultado"></p>
+
+  <script>
+    let listaDeAmigos = [];
+
+    // Agregar un nuevo amigo a la lista
+    function adicionarAmigo() {
+      const input = document.getElementById("nombreInput");
+      const nombre = input.value.trim();
+
+      if (nombre === "") {
+        alert("Por favor, escribe un nombre válido.");
+        return;
+      }
+
+      listaDeAmigos.push(nombre);
+      input.value = ""; // limpiar campo
+      mostrarLista();
+    }
+
+    // Mostrar la lista en la página
+    function mostrarLista() {
+      const lista = document.getElementById("listaAmigos");
+      lista.innerHTML = ""; // limpiar lista previa
+
+      listaDeAmigos.forEach((amigo, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${index + 1}. ${amigo}`;
+        lista.appendChild(li);
+      });
+    }
+
+    // Sortear un amigo al azar
+    function sortearAmigo() {
+      if (listaDeAmigos.length === 0) {
+        alert("La lista está vacía. Agrega al menos un amigo.");
+        return;
+      }
+
+      const indiceAleatorio = Math.floor(Math.random() * listaDeAmigos.length);
+      const amigoSorteado = listaDeAmigos[indiceAleatorio];
+
+      document.getElementById("resultado").textContent =
+        `🎉 El amigo secreto es: ${amigoSorteado} 🎉`;
+    }
+  </script>
+</body>
+</html>
